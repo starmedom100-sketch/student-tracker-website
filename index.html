@@ -258,24 +258,69 @@
   .telegram-btn .arrow{margin-inline-start:auto; color:#fff; opacity:.85; transition:transform .25s ease;}
   .telegram-btn:hover .arrow{transform:translateX(-4px);}
 
-  .video-frame{
-    background:var(--surface);
+  /* ===== استوديو عرض الفيديو (إطار موبايل احترافي) ===== */
+  .video-stage{
+    position:relative;
+    background:
+      radial-gradient(ellipse 380px 220px at 50% 8%, rgba(139,108,255,0.22), transparent 65%),
+      var(--surface);
     border:1px solid var(--line);
-    border-radius:18px;
-    padding:12px;
+    border-radius:24px;
+    padding:42px 20px 30px;
+    display:flex;
+    justify-content:center;
     transition:border-color .25s ease, box-shadow .25s ease;
+    overflow:hidden;
   }
-  .video-frame:hover{border-color:rgba(139,108,255,0.35); box-shadow:0 14px 30px -18px var(--accent-glow);}
-  .video-frame .screen{
-    aspect-ratio:16/9; width:100%;
-    border-radius:12px; background:#050712;
-    position:relative; overflow:hidden;
-    display:flex; align-items:center; justify-content:center;
+  .video-stage:hover{border-color:rgba(139,108,255,0.35); box-shadow:0 18px 36px -18px var(--accent-glow);}
+  .video-stage::before{
+    /* أرضية استوديو عاكسة تحت الموبايل */
+    content:"";
+    position:absolute;
+    bottom:-10px; left:50%; transform:translateX(-50%);
+    width:64%; height:26px;
+    background:radial-gradient(ellipse at center, rgba(139,108,255,0.35), transparent 72%);
+    filter:blur(10px);
+    pointer-events:none;
   }
-  .video-frame video{width:100%; height:100%; object-fit:cover; display:block;}
+
+  .phone-mockup{
+    position:relative;
+    width:min(230px, 62vw);
+    aspect-ratio:9/19.5;
+    background:linear-gradient(155deg, #262b48, #090b16);
+    border-radius:34px;
+    padding:9px;
+    box-shadow:
+      0 36px 60px -22px rgba(0,0,0,0.65),
+      0 0 0 1px rgba(255,255,255,0.07) inset,
+      0 0 46px -10px var(--accent-glow);
+  }
+  .phone-notch{
+    position:absolute;
+    top:9px; left:50%; transform:translateX(-50%);
+    width:36%; height:16px;
+    background:#05060c;
+    border-radius:0 0 11px 11px;
+    z-index:3;
+  }
+  .phone-btn{position:absolute; background:#05060c; border-radius:3px; z-index:1;}
+  .phone-btn.power{right:-3px; top:76px; width:3px; height:44px;}
+  .phone-btn.vol-up{left:-3px; top:58px; width:3px; height:24px;}
+  .phone-btn.vol-down{left:-3px; top:92px; width:3px; height:24px;}
+
+  .phone-screen{
+    position:relative;
+    width:100%; height:100%;
+    border-radius:25px;
+    overflow:hidden;
+    background:#000;
+  }
+  .phone-screen video{width:100%; height:100%; object-fit:cover; display:block;}
+
   .video-caption{
     display:flex; align-items:center; justify-content:space-between;
-    margin-top:10px; padding:0 4px;
+    margin-top:14px; padding:0 4px;
     font-size:12.5px; color:var(--text-soft);
   }
   .video-caption .rec{display:flex; align-items:center; gap:6px;}
@@ -460,17 +505,23 @@
 
   <section>
     <div class="col-label">طريقة التسجيل</div>
-    <div class="video-frame reveal">
-      <div class="screen">
-        <!-- استبدل REPLACE_WITH_VIDEO_URL.mp4 برابط الفيديو بعد رفعه (مثلاً كـ Release asset في نفس المستودع) -->
-        <video controls poster="" preload="none">
-          <source src="REPLACE_WITH_VIDEO_URL.mp4" type="video/mp4">
-        </video>
+    <div class="video-stage reveal">
+      <div class="phone-mockup">
+        <div class="phone-notch"></div>
+        <span class="phone-btn power"></span>
+        <span class="phone-btn vol-up"></span>
+        <span class="phone-btn vol-down"></span>
+        <div class="phone-screen">
+          <!-- استبدل REPLACE_WITH_VIDEO_URL.mp4 برابط الفيديو بعد رفعه (مثلاً كـ Release asset في نفس المستودع) -->
+          <video controls poster="" preload="none">
+            <source src="REPLACE_WITH_VIDEO_URL.mp4" type="video/mp4">
+          </video>
+        </div>
       </div>
-      <div class="video-caption">
-        <span class="rec"><span class="d"></span> فيديو شرح التسجيل</span>
-        <span>٣ دقائق</span>
-      </div>
+    </div>
+    <div class="video-caption">
+      <span class="rec"><span class="d"></span> فيديو شرح التسجيل</span>
+      <span>٣ دقائق</span>
     </div>
 
     <div class="col-label" style="margin-top:32px;">الأسعار</div>
