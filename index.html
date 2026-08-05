@@ -28,13 +28,15 @@
 
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
+  html{
+    background:linear-gradient(160deg, var(--bg-1), var(--bg-2) 70%);
+  }
   body{
     margin:0;
     background:
       radial-gradient(ellipse 900px 500px at 15% -10%, rgba(139,108,255,0.24), transparent 60%),
       radial-gradient(ellipse 700px 500px at 100% 10%, rgba(37,211,102,0.10), transparent 55%),
       linear-gradient(160deg, var(--bg-1), var(--bg-2) 70%);
-    background-attachment:fixed;
     color:var(--text);
     font-family:'Cairo', sans-serif;
     font-weight:500;
@@ -48,8 +50,11 @@
   .reveal.in{opacity:1; transform:translateY(0);}
 
   header{
-    padding:190px 0 40px;
+    padding:130px 0 40px;
     text-align:center;
+  }
+  @media (max-width:600px){
+    header{padding:76px 0 30px;}
   }
   .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
@@ -63,37 +68,25 @@
   .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--wa);}
 
   h1.title{
-    display:inline-block;
-    font-size:clamp(26px, 4.6vw, 44px);
-    font-weight:900;
+    display:flex;
+    justify-content:center;
+    align-items:baseline;
+    gap:.32em;
     margin:0;
-    color:var(--gold);
+    font-size:clamp(21px, 5.4vw, 44px);
+    font-weight:900;
     letter-spacing:.5px;
-    padding:9px 34px;
-    border:1.5px solid rgba(242,184,75,0.5);
-    border-radius:14px;
-    background:linear-gradient(180deg, rgba(242,184,75,0.09), rgba(242,184,75,0.02));
-    text-shadow:0 0 22px var(--gold-glow);
-    box-shadow:0 0 0 1px rgba(242,184,75,0.08) inset, 0 18px 40px -18px rgba(242,184,75,0.4);
-    position:relative;
-    transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    white-space:nowrap;
   }
-  h1.title::before{
-    content:"";
-    position:absolute; inset:-6px;
-    border:1px solid rgba(242,184,75,0.16);
-    border-radius:18px;
-    pointer-events:none;
-    transition:inset .3s ease, border-color .3s ease;
+  h1.title .word{
+    display:inline-block;
+    color:var(--text-dim);
+    text-shadow:none;
+    transition:color .6s ease, text-shadow .6s ease;
   }
-  h1.title:hover{
-    transform:translateY(-3px);
-    border-color:var(--gold);
-    box-shadow:0 0 0 1px rgba(242,184,75,0.15) inset, 0 22px 48px -16px rgba(242,184,75,0.55);
-  }
-  h1.title:hover::before{
-    inset:-9px;
-    border-color:rgba(242,184,75,0.32);
+  h1.title .word.lit{
+    color:var(--gold);
+    text-shadow:0 0 16px var(--gold-glow), 0 0 32px var(--gold-glow);
   }
   .hero-sub{
     max-width:520px;
@@ -363,7 +356,11 @@
 <body>
 
 <header class="wrap">
-  <h1 class="title">تطبيق متابعة الطلاب</h1>
+  <h1 class="title">
+    <span class="word">تطبيق</span>
+    <span class="word">متابعة</span>
+    <span class="word">الطلاب</span>
+  </h1>
   <p class="hero-sub">تسجيل، امتحانات، حضور، ورسائل واتساب أوتوماتيك لولي الأمر — من غير ما تلمس تليفونك.</p>
 </header>
 
@@ -432,8 +429,8 @@
         </svg>
       </a>
 
-      <!-- زرار الرابط الاحتياطي: استبدل # برابط ملف الـ APK بعد رفعه على archive.org -->
-      <a class="backup-btn reveal" href="#" target="_blank" rel="noopener">
+      <!-- زرار الرابط الاحتياطي عبر Archive.org -->
+      <a class="backup-btn reveal" href="https://archive.org/download/student-tracker-app-v1.0.0/student-tracker-app-v1.0.0.apk" target="_blank" rel="noopener">
         <span class="ic">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
             <circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/>
@@ -445,8 +442,8 @@
         </svg>
       </a>
 
-      <!-- زرار التليجرام: استبدل # برابط الملف/القناة على تليجرام بعد رفعه -->
-      <a class="telegram-btn reveal" href="#" target="_blank" rel="noopener">
+      <!-- زرار التليجرام -->
+      <a class="telegram-btn reveal" href="https://t.me/student_tracker/2" target="_blank" rel="noopener">
         <span class="ic">
           <svg width="24" height="24" viewBox="0 0 240 240" fill="none">
             <circle cx="120" cy="120" r="120" fill="#fff" fill-opacity="0.0"/>
@@ -506,6 +503,29 @@
 <footer class="wrap">صُمم بواسطة فريق عمل موقع الدكتور محمد رزق التعليمي — <b>تطبيق متابعة الطلاب</b></footer>
 
 <script>
+  // إضاءة كلمات العنوان واحدة تلو الأخرى في حلقة مستمرة
+  (function(){
+    const words = document.querySelectorAll('h1.title .word');
+    function cycle(){
+      words.forEach(w => w.classList.remove('lit'));
+      let i = 0;
+      function step(){
+        if(i < words.length){
+          words[i].classList.add('lit');
+          i++;
+          setTimeout(step, 420);
+        } else {
+          setTimeout(() => {
+            words.forEach(w => w.classList.remove('lit'));
+            setTimeout(cycle, 700);
+          }, 1300);
+        }
+      }
+      step();
+    }
+    cycle();
+  })();
+
   const TRIAL_HOURS = 48;
   document.getElementById('trialHours').innerHTML = TRIAL_HOURS + '<small> ساعة</small>';
 
