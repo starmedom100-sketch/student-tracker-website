@@ -284,20 +284,53 @@
     background:var(--surface);
     border:1px solid var(--line);
     border-radius:18px;
-    padding:12px;
+    padding:20px 12px;
     transition:border-color .25s ease, box-shadow .25s ease;
   }
   .video-frame:hover{border-color:rgba(139,108,255,0.35); box-shadow:0 14px 30px -18px var(--accent-glow);}
+
+  .phone-mock{
+    position:relative;
+    width:100%; max-width:230px;
+    margin:0 auto;
+    background:linear-gradient(160deg,#1c2140,#0c0e1e);
+    border-radius:34px;
+    padding:38px 8px 16px;
+    box-shadow:
+      0 0 0 1.5px rgba(255,255,255,0.06),
+      0 0 0 6px rgba(139,108,255,0.05),
+      0 30px 60px -20px rgba(0,0,0,0.65),
+      0 8px 24px -10px var(--accent-glow);
+  }
+  .phone-mock::before{
+    content:"";
+    position:absolute; inset:0;
+    border-radius:34px;
+    border:1px solid rgba(255,255,255,0.08);
+    pointer-events:none;
+  }
+  .phone-mock .notch{
+    position:absolute; top:14px; left:50%; transform:translateX(-50%);
+    width:70px; height:18px;
+    background:#0c0e1e;
+    border-radius:12px;
+    z-index:2;
+  }
+  .phone-mock .home-bar{
+    width:64px; height:4px;
+    background:rgba(255,255,255,0.35);
+    border-radius:99px;
+    margin:10px auto 0;
+  }
   .video-frame .screen{
-    aspect-ratio:16/9; width:100%;
-    border-radius:12px; background:#050712;
+    aspect-ratio:9/16; width:100%;
+    border-radius:24px; background:#050712;
     position:relative; overflow:hidden;
-    display:flex; align-items:center; justify-content:center;
   }
   .video-frame video{width:100%; height:100%; object-fit:cover; display:block; background:#050712;}
   .video-caption{
     display:flex; align-items:center; justify-content:space-between;
-    margin-top:10px; padding:0 4px;
+    margin-top:16px; padding:0 4px;
     font-size:12.5px; color:var(--text-soft);
   }
   .video-caption .rec{display:flex; align-items:center; gap:6px;}
@@ -491,11 +524,15 @@
   <section>
     <div class="col-label">طريقة التسجيل</div>
     <div class="video-frame reveal">
-      <div class="screen">
-        <!-- استبدل REPLACE_WITH_VIDEO_URL.mp4 برابط الفيديو بعد رفعه (مثلاً كـ Release asset في نفس المستودع) -->
-        <video controls poster="" preload="none">
-          <source src="REPLACE_WITH_VIDEO_URL.mp4" type="video/mp4">
-        </video>
+      <div class="phone-mock">
+        <div class="notch"></div>
+        <div class="screen">
+          <!-- استبدل REPLACE_WITH_VIDEO_URL.mp4 برابط الفيديو بعد رفعه (مثلاً كـ Release asset في نفس المستودع) -->
+          <video controls poster="" preload="none">
+            <source src="REPLACE_WITH_VIDEO_URL.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="home-bar"></div>
       </div>
       <div class="video-caption">
         <span class="rec"><span class="d"></span> فيديو شرح التسجيل</span>
