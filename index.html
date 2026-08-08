@@ -28,15 +28,13 @@
 
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  html{
-    background:linear-gradient(160deg, var(--bg-1), var(--bg-2) 70%);
-  }
   body{
     margin:0;
     background:
       radial-gradient(ellipse 900px 500px at 15% -10%, rgba(139,108,255,0.24), transparent 60%),
       radial-gradient(ellipse 700px 500px at 100% 10%, rgba(37,211,102,0.10), transparent 55%),
       linear-gradient(160deg, var(--bg-1), var(--bg-2) 70%);
+    background-attachment:fixed;
     color:var(--text);
     font-family:'Cairo', sans-serif;
     font-weight:500;
@@ -50,11 +48,8 @@
   .reveal.in{opacity:1; transform:translateY(0);}
 
   header{
-    padding:130px 0 40px;
+    padding:190px 0 40px;
     text-align:center;
-  }
-  @media (max-width:600px){
-    header{padding:76px 0 30px;}
   }
   .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
@@ -68,25 +63,37 @@
   .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--wa);}
 
   h1.title{
-    display:flex;
-    justify-content:center;
-    align-items:baseline;
-    gap:.32em;
-    margin:0;
-    font-size:clamp(21px, 5.4vw, 44px);
-    font-weight:900;
-    letter-spacing:.5px;
-    white-space:nowrap;
-  }
-  h1.title .word{
     display:inline-block;
-    color:var(--text-dim);
-    text-shadow:none;
-    transition:color .6s ease, text-shadow .6s ease;
-  }
-  h1.title .word.lit{
+    font-size:clamp(26px, 4.6vw, 44px);
+    font-weight:900;
+    margin:0;
     color:var(--gold);
-    text-shadow:0 0 16px var(--gold-glow), 0 0 32px var(--gold-glow);
+    letter-spacing:.5px;
+    padding:9px 34px;
+    border:1.5px solid rgba(242,184,75,0.5);
+    border-radius:14px;
+    background:linear-gradient(180deg, rgba(242,184,75,0.09), rgba(242,184,75,0.02));
+    text-shadow:0 0 22px var(--gold-glow);
+    box-shadow:0 0 0 1px rgba(242,184,75,0.08) inset, 0 18px 40px -18px rgba(242,184,75,0.4);
+    position:relative;
+    transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  }
+  h1.title::before{
+    content:"";
+    position:absolute; inset:-6px;
+    border:1px solid rgba(242,184,75,0.16);
+    border-radius:18px;
+    pointer-events:none;
+    transition:inset .3s ease, border-color .3s ease;
+  }
+  h1.title:hover{
+    transform:translateY(-3px);
+    border-color:var(--gold);
+    box-shadow:0 0 0 1px rgba(242,184,75,0.15) inset, 0 22px 48px -16px rgba(242,184,75,0.55);
+  }
+  h1.title:hover::before{
+    inset:-9px;
+    border-color:rgba(242,184,75,0.32);
   }
   .hero-sub{
     max-width:520px;
@@ -185,7 +192,7 @@
     display:flex; align-items:center; justify-content:center;
     transition:transform .3s ease;
   }
-  .download-btn .txt{display:flex; flex-direction:column; gap:2px;}
+  .download-btn .txt{display:flex; flex-direction:column; gap:2px; flex:1; min-width:0;}
   .download-btn .txt b{font-size:16px; font-weight:800;}
   .download-btn .txt span{font-size:12px; color:rgba(255,255,255,0.8); font-weight:500;}
   .download-btn .arrow{margin-inline-start:auto; opacity:.85; transition:transform .25s ease;}
@@ -219,11 +226,26 @@
     transition:transform .3s ease;
   }
   .backup-btn:hover .ic{transform:rotate(8deg) scale(1.08);}
-  .backup-btn .txt{display:flex; flex-direction:column; gap:2px;}
+  .backup-btn .txt{display:flex; flex-direction:column; gap:2px; flex:1; min-width:0;}
   .backup-btn .txt b{font-size:16px; font-weight:800; color:var(--text);}
   .backup-btn .txt span{font-size:12px; color:var(--text-dim); font-weight:500;}
   .backup-btn .arrow{margin-inline-start:auto; color:var(--gold); opacity:.85; transition:transform .25s ease;}
   .backup-btn:hover .arrow{transform:translateX(-4px);}
+
+  .dl-count{
+    flex:none;
+    font-size:16px; font-weight:800;
+    color:#fff;
+    background:rgba(0,0,0,0.32);
+    border:1.5px solid rgba(255,255,255,0.35);
+    border-radius:999px;
+    padding:8px 14px;
+    display:flex; align-items:center; gap:7px;
+    white-space:nowrap;
+  }
+  .dl-count svg{flex:none; width:15px; height:15px;}
+  .dl-count .dl-num{margin-inline-end:2px;}
+  .backup-btn .dl-count{color:var(--gold); background:rgba(242,184,75,0.16); border-color:rgba(242,184,75,0.45);}
 
   /* زرار التليجرام */
   .telegram-btn{
@@ -252,75 +274,30 @@
     display:flex; align-items:center; justify-content:center;
     transition:transform .3s ease;
   }
-  .telegram-btn .txt{display:flex; flex-direction:column; gap:2px;}
+  .telegram-btn .txt{display:flex; flex-direction:column; gap:2px; flex:1; min-width:0;}
   .telegram-btn .txt b{font-size:16px; font-weight:800; color:#fff;}
   .telegram-btn .txt span{font-size:12px; color:rgba(255,255,255,0.85); font-weight:500;}
   .telegram-btn .arrow{margin-inline-start:auto; color:#fff; opacity:.85; transition:transform .25s ease;}
   .telegram-btn:hover .arrow{transform:translateX(-4px);}
 
-  /* ===== استوديو عرض الفيديو (إطار موبايل احترافي) ===== */
-  .video-stage{
-    position:relative;
-    background:
-      radial-gradient(ellipse 380px 220px at 50% 8%, rgba(139,108,255,0.22), transparent 65%),
-      var(--surface);
+  .video-frame{
+    background:var(--surface);
     border:1px solid var(--line);
-    border-radius:24px;
-    padding:42px 20px 30px;
-    display:flex;
-    justify-content:center;
+    border-radius:18px;
+    padding:12px;
     transition:border-color .25s ease, box-shadow .25s ease;
-    overflow:hidden;
   }
-  .video-stage:hover{border-color:rgba(139,108,255,0.35); box-shadow:0 18px 36px -18px var(--accent-glow);}
-  .video-stage::before{
-    /* أرضية استوديو عاكسة تحت الموبايل */
-    content:"";
-    position:absolute;
-    bottom:-10px; left:50%; transform:translateX(-50%);
-    width:64%; height:26px;
-    background:radial-gradient(ellipse at center, rgba(139,108,255,0.35), transparent 72%);
-    filter:blur(10px);
-    pointer-events:none;
+  .video-frame:hover{border-color:rgba(139,108,255,0.35); box-shadow:0 14px 30px -18px var(--accent-glow);}
+  .video-frame .screen{
+    aspect-ratio:16/9; width:100%;
+    border-radius:12px; background:#050712;
+    position:relative; overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
   }
-
-  .phone-mockup{
-    position:relative;
-    width:min(230px, 62vw);
-    aspect-ratio:9/19.5;
-    background:linear-gradient(155deg, #262b48, #090b16);
-    border-radius:34px;
-    padding:9px;
-    box-shadow:
-      0 36px 60px -22px rgba(0,0,0,0.65),
-      0 0 0 1px rgba(255,255,255,0.07) inset,
-      0 0 46px -10px var(--accent-glow);
-  }
-  .phone-notch{
-    position:absolute;
-    top:9px; left:50%; transform:translateX(-50%);
-    width:36%; height:16px;
-    background:#05060c;
-    border-radius:0 0 11px 11px;
-    z-index:3;
-  }
-  .phone-btn{position:absolute; background:#05060c; border-radius:3px; z-index:1;}
-  .phone-btn.power{right:-3px; top:76px; width:3px; height:44px;}
-  .phone-btn.vol-up{left:-3px; top:58px; width:3px; height:24px;}
-  .phone-btn.vol-down{left:-3px; top:92px; width:3px; height:24px;}
-
-  .phone-screen{
-    position:relative;
-    width:100%; height:100%;
-    border-radius:25px;
-    overflow:hidden;
-    background:#000;
-  }
-  .phone-screen video{width:100%; height:100%; object-fit:cover; display:block;}
-
+  .video-frame video{width:100%; height:100%; object-fit:cover; display:block; background:#050712;}
   .video-caption{
     display:flex; align-items:center; justify-content:space-between;
-    margin-top:14px; padding:0 4px;
+    margin-top:10px; padding:0 4px;
     font-size:12.5px; color:var(--text-soft);
   }
   .video-caption .rec{display:flex; align-items:center; gap:6px;}
@@ -401,11 +378,7 @@
 <body>
 
 <header class="wrap">
-  <h1 class="title">
-    <span class="word">تطبيق</span>
-    <span class="word">متابعة</span>
-    <span class="word">الطلاب</span>
-  </h1>
+  <h1 class="title">تطبيق متابعة الطلاب</h1>
   <p class="hero-sub">تسجيل، امتحانات، حضور، ورسائل واتساب أوتوماتيك لولي الأمر — من غير ما تلمس تليفونك.</p>
 </header>
 
@@ -469,26 +442,34 @@
           </svg>
         </span>
         <span class="txt"><b>تحميل التطبيق</b><span>APK عبر GitHub</span></span>
+        <span class="dl-count" data-key="st_track_app_dl_github_v1">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v13m0 0-4.5-4.5M12 16l4.5-4.5"/><path d="M4 20h16"/></svg>
+          <span class="dl-num">—</span> <span class="dl-label">تحميل</span>
+        </span>
         <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
           <path d="M14 6l-6 6 6 6" transform="rotate(180 12 12)"/>
         </svg>
       </a>
 
       <!-- زرار الرابط الاحتياطي عبر Archive.org -->
-      <a class="backup-btn reveal" href="https://archive.org/download/student-tracker-app-v1.0.0/student-tracker-app-v1.0.0.apk" target="_blank" rel="noopener">
+      <a class="backup-btn reveal" href="https://archive.org/download/student-tracker-app-v1.0.0/app.apk" target="_blank" rel="noopener">
         <span class="ic">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
             <circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/>
           </svg>
         </span>
         <span class="txt"><b>رابط تحميل احتياطي</b><span>عبر Archive.org</span></span>
+        <span class="dl-count" data-key="st_track_app_dl_archive_v1">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v13m0 0-4.5-4.5M12 16l4.5-4.5"/><path d="M4 20h16"/></svg>
+          <span class="dl-num">—</span> <span class="dl-label">تحميل</span>
+        </span>
         <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M14 6l-6 6 6 6" transform="rotate(180 12 12)"/>
         </svg>
       </a>
 
       <!-- زرار التليجرام -->
-      <a class="telegram-btn reveal" href="https://t.me/student_tracker/2" target="_blank" rel="noopener">
+      <a class="telegram-btn reveal" href="https://t.me/student_tracker/4" target="_blank" rel="noopener">
         <span class="ic">
           <svg width="24" height="24" viewBox="0 0 240 240" fill="none">
             <circle cx="120" cy="120" r="120" fill="#fff" fill-opacity="0.0"/>
@@ -496,6 +477,10 @@
           </svg>
         </span>
         <span class="txt"><b>تحميل عبر تليجرام</b><span>قناة/بوت مباشر</span></span>
+        <span class="dl-count" data-key="st_track_app_dl_telegram_v1">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v13m0 0-4.5-4.5M12 16l4.5-4.5"/><path d="M4 20h16"/></svg>
+          <span class="dl-num">—</span> <span class="dl-label">تحميل</span>
+        </span>
         <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M14 6l-6 6 6 6" transform="rotate(180 12 12)"/>
         </svg>
@@ -505,23 +490,17 @@
 
   <section>
     <div class="col-label">طريقة التسجيل</div>
-    <div class="video-stage reveal">
-      <div class="phone-mockup">
-        <div class="phone-notch"></div>
-        <span class="phone-btn power"></span>
-        <span class="phone-btn vol-up"></span>
-        <span class="phone-btn vol-down"></span>
-        <div class="phone-screen">
-          <!-- استبدل REPLACE_WITH_VIDEO_URL.mp4 برابط الفيديو بعد رفعه (مثلاً كـ Release asset في نفس المستودع) -->
-          <video controls poster="" preload="none">
-            <source src="REPLACE_WITH_VIDEO_URL.mp4" type="video/mp4">
-          </video>
-        </div>
+    <div class="video-frame reveal">
+      <div class="screen">
+        <!-- استبدل REPLACE_WITH_VIDEO_URL.mp4 برابط الفيديو بعد رفعه (مثلاً كـ Release asset في نفس المستودع) -->
+        <video controls poster="" preload="none">
+          <source src="REPLACE_WITH_VIDEO_URL.mp4" type="video/mp4">
+        </video>
       </div>
-    </div>
-    <div class="video-caption">
-      <span class="rec"><span class="d"></span> فيديو شرح التسجيل</span>
-      <span>٣ دقائق</span>
+      <div class="video-caption">
+        <span class="rec"><span class="d"></span> فيديو شرح التسجيل</span>
+        <span>٣ دقائق</span>
+      </div>
     </div>
 
     <div class="col-label" style="margin-top:32px;">الأسعار</div>
@@ -535,7 +514,7 @@
       <div class="plan-card reveal">
         <span class="badge">الأكثر اشتراكًا</span>
         <h4>الاشتراك الشهري</h4>
-        <div class="value">100 <small>ج.م / شهر</small></div>
+        <div class="value">السعر <small>مفاجأة! 🎁</small></div>
         <ul>
           <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg> كل المميزات مفتوحة</li>
           <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg> رسائل واتساب بلا حدود</li>
@@ -554,29 +533,6 @@
 <footer class="wrap">صُمم بواسطة فريق عمل موقع الدكتور محمد رزق التعليمي — <b>تطبيق متابعة الطلاب</b></footer>
 
 <script>
-  // إضاءة كلمات العنوان واحدة تلو الأخرى في حلقة مستمرة
-  (function(){
-    const words = document.querySelectorAll('h1.title .word');
-    function cycle(){
-      words.forEach(w => w.classList.remove('lit'));
-      let i = 0;
-      function step(){
-        if(i < words.length){
-          words[i].classList.add('lit');
-          i++;
-          setTimeout(step, 420);
-        } else {
-          setTimeout(() => {
-            words.forEach(w => w.classList.remove('lit'));
-            setTimeout(cycle, 700);
-          }, 1300);
-        }
-      }
-      step();
-    }
-    cycle();
-  })();
-
   const TRIAL_HOURS = 48;
   document.getElementById('trialHours').innerHTML = TRIAL_HOURS + '<small> ساعة</small>';
 
@@ -590,6 +546,38 @@
     });
   }, { threshold: 0.15 });
   revealEls.forEach(el => io.observe(el));
+
+  /* ===== عداد التحميلات الحقيقي (يعتمد على خدمة CountAPI مجانية بدون حساب) ===== */
+  const COUNT_API = 'https://countapi.mileshilliard.com/api/v1';
+
+  function formatCount(n){
+    n = parseInt(n, 10) || 0;
+    return n.toLocaleString('ar-EG');
+  }
+
+  // عند فتح الصفحة: نجيب العدد الحالي لكل زرار بدون ما نزوّده (get فقط)
+  document.querySelectorAll('.dl-count').forEach(badge => {
+    const key = badge.dataset.key;
+    const numEl = badge.querySelector('.dl-num');
+    fetch(`${COUNT_API}/get/${key}`)
+      .then(res => res.ok ? res.json() : { value: 0 })
+      .then(data => { numEl.textContent = formatCount(data.value || 0); })
+      .catch(() => { numEl.textContent = formatCount(0); });
+  });
+
+  // عند الضغط على أي زرار تحميل: نزوّد العداد فعليًا (hit) ونحدّث الرقم على الشاشة
+  document.querySelectorAll('.download-btn, .backup-btn, .telegram-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const badge = btn.querySelector('.dl-count');
+      if (!badge) return;
+      const key = badge.dataset.key;
+      const numEl = badge.querySelector('.dl-num');
+      fetch(`${COUNT_API}/hit/${key}`)
+        .then(res => res.json())
+        .then(data => { numEl.textContent = formatCount(data.value || 0); })
+        .catch(() => {});
+    });
+  });
 </script>
 
 </body>
