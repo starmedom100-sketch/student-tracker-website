@@ -328,6 +328,7 @@
     position:relative; overflow:hidden;
   }
   .video-frame video{width:100%; height:100%; object-fit:cover; display:block; background:#050712;}
+  .video-frame iframe{width:100%; height:100%; display:block; background:#050712; border:0;}
   .video-caption{
     display:flex; align-items:center; justify-content:space-between;
     margin-top:16px; padding:0 4px;
@@ -527,10 +528,14 @@
       <div class="phone-mock">
         <div class="notch"></div>
         <div class="screen">
-          <!-- استبدل REPLACE_WITH_VIDEO_URL.mp4 برابط الفيديو بعد رفعه (مثلاً كـ Release asset في نفس المستودع) -->
-          <video controls poster="" preload="none">
-            <source src="REPLACE_WITH_VIDEO_URL.mp4" type="video/mp4">
-          </video>
+          <!-- فيديو يوتيوب مضمّن -->
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/jBvozngby18?rel=0&modestbranding=1&playsinline=1"
+            title="فيديو شرح التسجيل"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
         </div>
         <div class="home-bar"></div>
       </div>
