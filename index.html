@@ -329,6 +329,16 @@
   }
   .video-frame video{width:100%; height:100%; object-fit:cover; display:block; background:#050712;}
   .video-frame iframe{width:100%; height:100%; display:block; background:#050712; border:0;}
+  .expand-btn{
+    position:absolute; top:10px; left:10px; z-index:5;
+    width:32px; height:32px; border-radius:9px; border:none;
+    background:rgba(10,12,26,0.55);
+    backdrop-filter:blur(4px);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .expand-btn:hover{background:rgba(139,108,255,0.85); transform:scale(1.06);}
   .video-caption{
     display:flex; align-items:center; justify-content:space-between;
     margin-top:16px; padding:0 4px;
@@ -530,12 +540,18 @@
         <div class="screen">
           <!-- فيديو يوتيوب مضمّن -->
           <iframe
+            id="regVideo"
             src="https://www.youtube-nocookie.com/embed/jBvozngby18?rel=0&modestbranding=1&playsinline=1"
             title="فيديو شرح التسجيل"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
             loading="lazy">
           </iframe>
+          <button class="expand-btn" type="button" aria-label="تكبير الفيديو" onclick="expandVideo()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 3H3v6M15 3h6v6M15 21h6v-6M9 21H3v-6"/>
+            </svg>
+          </button>
         </div>
         <div class="home-bar"></div>
       </div>
@@ -575,6 +591,15 @@
 <footer class="wrap">صُمم بواسطة فريق عمل موقع الدكتور محمد رزق التعليمي — <b>تطبيق متابعة الطلاب</b></footer>
 
 <script>
+  function expandVideo(){
+    const el = document.getElementById('regVideo');
+    if (!el) return;
+    if (el.requestFullscreen) el.requestFullscreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if (el.webkitEnterFullscreen) el.webkitEnterFullscreen(); // Safari على iOS القديم
+    else if (el.msRequestFullscreen) el.msRequestFullscreen();
+  }
+
   const TRIAL_HOURS = 48;
   document.getElementById('trialHours').innerHTML = TRIAL_HOURS + '<small> ساعة</small>';
 
