@@ -280,78 +280,6 @@
   .telegram-btn .arrow{margin-inline-start:auto; color:#fff; opacity:.85; transition:transform .25s ease;}
   .telegram-btn:hover .arrow{transform:translateX(-4px);}
 
-  /* ===== مودال تعليمات التثبيت قبل التحميل ===== */
-  .install-overlay{
-    position:fixed; inset:0; z-index:999;
-    background:rgba(6,7,18,0.72);
-    backdrop-filter:blur(6px);
-    display:flex; align-items:center; justify-content:center;
-    padding:20px;
-    opacity:0; pointer-events:none;
-    transition:opacity .25s ease;
-  }
-  .install-overlay.show{opacity:1; pointer-events:auto;}
-  .install-modal{
-    width:100%; max-width:440px;
-    background:linear-gradient(180deg, var(--surface-2), var(--surface));
-    border:1.5px solid rgba(139,108,255,0.4);
-    border-radius:20px;
-    padding:26px 24px 22px;
-    box-shadow:0 30px 70px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(139,108,255,0.08) inset;
-    transform:translateY(18px) scale(.97);
-    transition:transform .3s cubic-bezier(.2,.8,.25,1);
-  }
-  .install-overlay.show .install-modal{transform:translateY(0) scale(1);}
-  .install-modal .im-icon{
-    width:52px; height:52px; border-radius:14px;
-    background:rgba(139,108,255,0.15); color:var(--accent);
-    display:flex; align-items:center; justify-content:center;
-    margin:0 auto 14px;
-  }
-  .install-modal h3{
-    margin:0 0 16px; text-align:center;
-    font-size:19px; font-weight:900; color:var(--text);
-  }
-  .install-modal ol{
-    margin:0 0 20px; padding:0 22px 0 0;
-    display:flex; flex-direction:column; gap:12px;
-  }
-  .install-modal ol li{
-    font-size:16px; font-weight:800; line-height:1.6;
-    color:var(--gold);
-    text-shadow:0 0 18px var(--gold-glow);
-  }
-  .install-modal ol li b, .install-modal ol li strong{color:var(--text); font-weight:900;}
-  .install-modal .im-note{
-    font-size:12.5px; font-weight:600; color:var(--text-soft);
-    background:rgba(139,108,255,0.08);
-    border:1px solid rgba(139,108,255,0.25);
-    border-radius:10px;
-    padding:10px 12px;
-    margin-bottom:18px;
-    line-height:1.7;
-  }
-  .install-modal .im-actions{display:flex; flex-direction:column; gap:10px;}
-  .im-agree{
-    display:flex; align-items:center; justify-content:center; gap:8px;
-    width:100%; border:none; cursor:pointer;
-    background:linear-gradient(135deg, var(--accent-2), var(--accent));
-    color:#fff; font-family:inherit;
-    font-size:15.5px; font-weight:800;
-    padding:14px 18px; border-radius:13px;
-    box-shadow:0 12px 26px -10px var(--accent-glow);
-    transition:transform .2s ease, box-shadow .2s ease;
-  }
-  .im-agree:hover{transform:translateY(-2px); box-shadow:0 16px 32px -8px var(--accent-glow);}
-  .im-cancel{
-    width:100%; border:1px solid var(--line); cursor:pointer;
-    background:transparent; color:var(--text-dim); font-family:inherit;
-    font-size:13.5px; font-weight:700;
-    padding:11px 18px; border-radius:13px;
-    transition:border-color .2s ease, color .2s ease;
-  }
-  .im-cancel:hover{border-color:rgba(255,255,255,0.3); color:var(--text-soft);}
-
   .video-frame{
     background:var(--surface);
     border:1px solid var(--line);
@@ -568,7 +496,7 @@
       </a>
 
       <!-- زرار الرابط الاحتياطي عبر Archive.org -->
-      <a class="backup-btn reveal" href="https://archive.org/download/student-tracker-v1.0.0_2027/student-tracker-v1.0.0.apk" target="_blank" rel="noopener">
+      <a class="backup-btn reveal" href="https://archive.org/download/app-user2027/app-user2027.apk" target="_blank" rel="noopener">
         <span class="ic">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
             <circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/>
@@ -585,7 +513,7 @@
       </a>
 
       <!-- زرار التليجرام -->
-      <a class="telegram-btn reveal" href="https://t.me/student_tracker/7" target="_blank" rel="noopener">
+      <a class="telegram-btn reveal" href="https://t.me/student_tracker/9" target="_blank" rel="noopener">
         <span class="ic">
           <svg width="24" height="24" viewBox="0 0 240 240" fill="none">
             <circle cx="120" cy="120" r="120" fill="#fff" fill-opacity="0.0"/>
@@ -660,26 +588,6 @@
 
 </main>
 
-<div class="install-overlay" id="installOverlay">
-  <div class="install-modal" role="dialog" aria-modal="true" aria-labelledby="installTitle">
-    <div class="im-icon">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-        <path d="M12 3v13m0 0-4.5-4.5M12 16l4.5-4.5"/>
-        <path d="M4 18.5V20a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-1.5"/>
-      </svg>
-    </div>
-    <h3 id="installTitle">قبل ما تثبّت التطبيق 👇</h3>
-   <ol>
-  <li>برجاء <b>إغلاق الإنترنت قبل تثبيت التطبيق</b>  ليتم تفعيل إعدادات الإرسال التلقائي للواتس اب.</li>
-</ol>
-    <div class="im-note">هتحتاج تفعّل الخيار ده مرة واحدة بس، وبعدها تقدر تثبّت التطبيق عادي.</div>
-    <div class="im-actions">
-      <button type="button" class="im-agree" id="installAgreeBtn">أوافق ومتابعة التحميل</button>
-      <button type="button" class="im-cancel" id="installCancelBtn">رجوع</button>
-    </div>
-  </div>
-</div>
-
 <footer class="wrap">صُمم بواسطة فريق عمل موقع الدكتور محمد رزق التعليمي — <b>تطبيق متابعة الطلاب</b></footer>
 
 <script>
@@ -737,51 +645,6 @@
         .catch(() => {});
     });
   });
-
-  /* ===== مودال تعليمات التثبيت: يظهر قبل بدء أي تحميل ===== */
-  (function(){
-    const overlay = document.getElementById('installOverlay');
-    const agreeBtn = document.getElementById('installAgreeBtn');
-    const cancelBtn = document.getElementById('installCancelBtn');
-    // كل أزرار التحميل (GitHub / Archive / Telegram)
-    const dlButtons = document.querySelectorAll('.download-btn, .backup-btn, .telegram-btn');
-    let pendingHref = null;
-    let pendingTarget = '_blank';
-
-    function openModal(href, target){
-      pendingHref = href;
-      pendingTarget = target || '_blank';
-      overlay.classList.add('show');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeModal(){
-      overlay.classList.remove('show');
-      document.body.style.overflow = '';
-      pendingHref = null;
-    }
-
-    dlButtons.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        openModal(btn.getAttribute('href'), btn.getAttribute('target'));
-      });
-    });
-
-    agreeBtn.addEventListener('click', () => {
-      if (pendingHref) {
-        window.open(pendingHref, pendingTarget);
-      }
-      closeModal();
-    });
-
-    cancelBtn.addEventListener('click', closeModal);
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) closeModal();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && overlay.classList.contains('show')) closeModal();
-    });
-  })();
 </script>
 
 </body>
